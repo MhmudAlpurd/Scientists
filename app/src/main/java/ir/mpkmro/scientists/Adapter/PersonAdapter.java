@@ -23,7 +23,7 @@ public class PersonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<Person> personList;
 
 
-    public PersonAdapter(@NonNull View itemView) {
+    public PersonAdapter(Context context, List<Person> personList) {
         this.context = context;
         this.personList = personList;
     }

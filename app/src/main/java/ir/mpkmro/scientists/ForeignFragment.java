@@ -40,7 +40,7 @@ public class ForeignFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_id);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         DataBase db = new DataBase(getActivity());
-        List<Person> personList = db.getAllPerson();
+        List<Person> personList = db.getForeignPerson();
         adapter = new PersonAdapter(getActivity(),personList);
         recyclerView.setAdapter(adapter);
     }

@@ -33,13 +33,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(newVersion>oldVersion) {
-            try {
-                copyDataBase();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 
 
@@ -53,7 +47,7 @@ public class DataBase extends SQLiteOpenHelper {
             Log.i("SQLite Error", "isDatabase_method");
         }
 
-        check = context.getDatabasePath(info_db.DATABASE_NAME);
+        check = this.context.getDatabasePath(info_db.DATABASE_NAME);
 
 
         if (check.exists()) {

@@ -41,8 +41,6 @@ public class PersonAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ItemViewHolder myViewHolder = (ItemViewHolder) holder;
         myViewHolder.name.setText(personList.get(position).getName());
         myViewHolder.field.setText(personList.get(position).getField());
-
-
         Picasso.with(context).load(personList.get(position).getImage()).resize(128,128).into(myViewHolder.imageView);
 
     }

@@ -12,5 +12,5 @@ public class info_db {
     public static final String DATA_FAV = "fav";
     public static final String PACKAGE = "data/data/ir.mpkmro.scientists/databases/";
     /*PACKAGE : jayi ke db zakhireh misheh*/
-    public static final String DATABASE_SOURCE = "dbs.db";
+    public static final String DATABASE_SOURCE = "dbs";
 }

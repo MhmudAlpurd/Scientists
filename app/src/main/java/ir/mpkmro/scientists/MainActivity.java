@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -49,9 +47,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
 
         }
-
-
-
         return true;
     }
 }

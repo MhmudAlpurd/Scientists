@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,20 +17,40 @@ import java.util.List;
 import ir.mpkmro.scientists.Model.Person;
 
 public class DataBase extends SQLiteOpenHelper {
+
     private Context context;
 
     public DataBase(Context context) {
-        super(context, info_db.DATA_NAME, null, info_db.DATABASE_VERSION);
+        super(context, info_db.DATABASE_NAME, null, info_db.DATABASE_VERSION);
+        this.context = context;
         isDataBase();
     }
 
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if(newVersion>oldVersion) {
+            try {
+                copyDataBase();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
     private void isDataBase() {
-        /* Aya DB Vojoud Darad? Agar Vojoud Nadasht Copy Kon.*/
         File check = new File(info_db.PACKAGE);
         if (check.exists()) {
 
         } else {
             check.mkdir();
+            Log.i("SQLite Error", "isDatabase_method");
         }
 
         check = context.getDatabasePath(info_db.DATABASE_NAME);
@@ -41,6 +62,7 @@ public class DataBase extends SQLiteOpenHelper {
 
             try {
                 copyDataBase();
+                Log.i("SQLite Error", "copyDataBase_method");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -53,11 +75,8 @@ public class DataBase extends SQLiteOpenHelper {
     private void copyDataBase() throws IOException {
 
         InputStream myInput = context.getAssets().open(info_db.DATABASE_SOURCE);
-
         String outFileName = info_db.PACKAGE + info_db.DATABASE_NAME;
-
         OutputStream myOutput = new FileOutputStream(outFileName);
-
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myInput.read(buffer)) > 0) {
@@ -125,7 +144,7 @@ public class DataBase extends SQLiteOpenHelper {
     public List<Person> getForeignPerson() {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Person> data = new ArrayList<>();
-        String query = "SELECT * FROM person WHERE category ='foreign'";
+        String query = "SELECT * FROM person WHERE category = 'foreign'";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             do {
@@ -150,13 +169,5 @@ public class DataBase extends SQLiteOpenHelper {
 
 
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
 
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
 }

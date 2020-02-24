@@ -90,12 +90,12 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         if (value == 0) {
             db.fav(1,id);
             fab.setImageResource(R.drawable.ic_favorite);
-            Toast.makeText(ContentActivity.this, "به لیست علاقمندی ها اضافه شد" , Toast.LENGTH_LONG);
+            Toast.makeText(ContentActivity.this, "به لیست علاقمندی ها اضافه شد" , Toast.LENGTH_LONG).show();
 
         } else if (value == 1) {
             db.fav(0,id);
             fab.setImageResource(R.drawable.ic_like);
-            Toast.makeText(ContentActivity.this, "از لیست علاقمندی های حذف شد!" , Toast.LENGTH_LONG);
+            Toast.makeText(ContentActivity.this, "از لیست علاقمندی های حذف شد!" , Toast.LENGTH_LONG).show();
         }
     }
 }

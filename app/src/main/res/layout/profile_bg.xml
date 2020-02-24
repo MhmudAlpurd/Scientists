@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backGround"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/profile_bg_id"
+    >
 
     <ImageView
         android:layout_width="120dp"

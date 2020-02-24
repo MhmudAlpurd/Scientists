@@ -35,7 +35,7 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/iransans_bold"
             android:gravity="center"
-            android:text="نام دانشمند"
+            android:text="نام کاربر"
             android:textColor="@color/white" />
 
     </LinearLayout>

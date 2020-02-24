@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backGround"
     android:gravity="center"
+    android:id="@+id/search_bg"
     >
 
     <ImageView

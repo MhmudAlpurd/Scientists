@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
     android:background="@color/backGround"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/relative_id">
 
     <LinearLayout
         android:id="@+id/item_id"

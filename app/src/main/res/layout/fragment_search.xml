@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/backGround"
+    android:orientation="vertical"
     tools:context=".SearchFragment">
 
+    <include layout="@layout/search_background"/>
 
     <EditText
-        android:background="@drawable/ed_bg"
+        android:id="@+id/search_ed_id"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="30dp"
-        android:hint="جستجو کنید ..."
-        android:textColorHint="@color/white"
-        android:textSize="13dp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/iransans_bold"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ed_bg"
         android:drawableStart="@drawable/ic_search_blue"
+        android:fontFamily="@font/iransans_bold"
+        android:hint="جستجو کنید ..."
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:id="@+id/search_ed_id"
-        >
-    </EditText>
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="13dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_id">
+        android:layout_below="@id/search_ed_id"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_id"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 
 
-
-
-
-</LinearLayout>
+</RelativeLayout>

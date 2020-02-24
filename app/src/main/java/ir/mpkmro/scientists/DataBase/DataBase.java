@@ -20,6 +20,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     private Context context;
 
+
     public DataBase(Context context) {
         super(context, info_db.DATABASE_NAME, null, info_db.DATABASE_VERSION);
         this.context = context;
@@ -35,7 +36,6 @@ public class DataBase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
 
 
     private void isDataBase() {
@@ -161,7 +161,58 @@ public class DataBase extends SQLiteOpenHelper {
 
     }
 
+    public List<Person> getFavPerson() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Person> data = new ArrayList<>();
+        String query = "SELECT * FROM person WHERE fav = 1";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Person person = new Person();
+                person.setId(cursor.getInt(cursor.getColumnIndex(info_db.DATA_ID)));
+                person.setCategory(cursor.getString(cursor.getColumnIndex(info_db.DATA_CATEGORY)));
+                person.setName(cursor.getString(cursor.getColumnIndex(info_db.DATA_NAME)));
+                person.setField(cursor.getString(cursor.getColumnIndex(info_db.DATA_FIELD)));
+                person.setDisc(cursor.getString(cursor.getColumnIndex(info_db.DATA_DISC)));
+                person.setImage(cursor.getString(cursor.getColumnIndex(info_db.DATA_IMAGE)));
+                person.setFav(cursor.getInt(cursor.getColumnIndex(info_db.DATA_FAV)));
 
+                data.add(person);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return data;
+
+    }
+
+    public int fav_value(int id) {
+
+        //id midam va meghdare fav 0 ya 1 migiram.
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + info_db.DATA_FAV + " FROM person WHERE " + info_db.DATA_ID + "=" + id + "";
+        int value = 0;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            value = cursor.getInt(cursor.getColumnIndex(info_db.DATA_FAV));
+            do {
+
+            } while (cursor.moveToNext());
+
+        }
+        db.close();
+        return value;
+    }
+
+    public void fav(int status, int id) {
+        //id behesh midam va meghdare delkhahe fav(status) ro ham midam va meghdare fav update misheh.
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "UPDATE person SET " + info_db.DATA_FAV + "=" + status + " WHERE " + info_db.DATA_ID + "=" + id + "";
+        db.execSQL(query);
+        db.close();
+    }
 
 
 }

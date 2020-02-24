@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ir.mpkmro.scientists.DataBase.DataBase;
 
 public class ContentActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,7 +22,8 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
     CircleImageView image;
     TextView name, field, disc;
     FloatingActionButton fab;
-
+    DataBase db;
+    int id, value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +32,20 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
 
         setUpViews();
         getAndSetData();
+        favCondition();
         back.setOnClickListener(this);
         fab.setOnClickListener(this);
+
+    }
+
+    private void favCondition() {
+        db = new DataBase(ContentActivity.this);
+        value = db.fav_value(id);
+        if (value == 0) {
+            fab.setImageResource(R.drawable.ic_like);
+        } else if (value == 1) {
+            fab.setImageResource(R.drawable.ic_favorite);
+        }
 
     }
 
@@ -39,6 +54,7 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
         name.setText(intent.getExtras().getString("NAME"));
         field.setText(intent.getExtras().getString("FIELD"));
         disc.setText(intent.getExtras().getString("DISC"));
+        id = intent.getExtras().getInt("ID");
         String imageLink = intent.getExtras().getString("IMAGE");
         Picasso.with(ContentActivity.this).load(imageLink).resize(128, 128).into(image);
     }
@@ -61,10 +77,25 @@ public class ContentActivity extends AppCompatActivity implements View.OnClickLi
                 onBackPressed();
                 break;
             case R.id.fab_id:
-                //TODO
+                addOrRemoveFav();
                 break;
         }
 
 
+    }
+
+    private void addOrRemoveFav() {
+        db = new DataBase(ContentActivity.this);
+        value = db.fav_value(id);
+        if (value == 0) {
+            db.fav(1,id);
+            fab.setImageResource(R.drawable.ic_favorite);
+            Toast.makeText(ContentActivity.this, "به لیست علاقمندی ها اضافه شد" , Toast.LENGTH_LONG);
+
+        } else if (value == 1) {
+            db.fav(0,id);
+            fab.setImageResource(R.drawable.ic_like);
+            Toast.makeText(ContentActivity.this, "از لیست علاقمندی های حذف شد!" , Toast.LENGTH_LONG);
+        }
     }
 }
